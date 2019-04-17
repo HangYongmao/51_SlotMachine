@@ -1,2 +1,11 @@
-# 51_AccessControlSystem
-基于ISO IEC 14443 Type A的智慧车库门禁控制系统设计与实现
+# 51_SlotMachine
+
+老虎机游戏
+
+## 需求
+
+![Game.jpg](./Game.jpg)
+
+## 效果
+
+![res.gif](./res.gif)
