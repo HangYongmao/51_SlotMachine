@@ -23,8 +23,9 @@ sbit LED    = P1 ^ 7;
 sbit P2_0 = P2 ^ 0;
 sbit P2_1 = P2 ^ 1;
 sbit P2_2 = P2 ^ 2;
+sbit P2_3 = P2 ^ 3;
 
-uchar num_1=0, num_2=0, num_3=0;
+uchar num_1=0, num_2=0, num_3=0, num_4=0;
 
 uchar clock=0;
 
@@ -46,7 +47,7 @@ void delay_ms(uint xms)
         for (j = 0; j<110; j++);
 }
 
-void display(uchar num1, uchar num2, uchar num3)
+void display(uchar num1, uchar num2, uchar num3, uchar num4)
 {
     P0=table[num1];
     P2_0 = 0;
@@ -62,6 +63,11 @@ void display(uchar num1, uchar num2, uchar num3)
     P2_2 = 0;
     delay_ms(5);
     P2_2 = 1;
+    
+    P0=table[num4];
+    P2_3 = 0;
+    delay_ms(5);
+    P2_3 = 1;
 }
 
 uchar keyScan()
@@ -109,6 +115,11 @@ void T0_time() interrupt 1
     {
         num_3 = rand()%9;
     }
+    // 0.1s
+    if (num % 20 == 0)
+    {
+        num_4 = rand()%9;
+    }
     if (num == 200)
     {
         clock ++;
@@ -146,9 +157,9 @@ void main()
             clock = 0;
         }
         
-        display(num_1, num_2, num_3);
+        display(num_1, num_2, num_3, num_4);
         
-        if ((num_1 == num_2) && (num_2 == num_3) && (clock != 0))
+        if ((num_1 == num_2) && (num_2 == num_3) && (num_3 == num_4) && (clock != 0))
         {
             TR0 = 0;    // ¹Ø±Õ¶¨Ê±Æ÷
             clock = 0;
